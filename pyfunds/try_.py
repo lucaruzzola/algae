@@ -3,6 +3,8 @@ from __future__ import annotations
 from abc import abstractmethod, ABC
 from typing import Callable, TypeVar, Union, Generic, Any, Dict, List
 
+from pyfunds.either import Either, Right, Left
+
 T = TypeVar("T")
 U = TypeVar("U")
 
@@ -12,7 +14,9 @@ class Try(ABC, Generic[T]):
         super().__init__()
 
     @staticmethod
-    def apply(f: Callable[[Any], T], *args: List[Any], **kwargs: Dict[str, Any]) -> Try[T]:
+    def apply(
+        f: Callable[[Any], T], *args: List[Any], **kwargs: Dict[str, Any]
+    ) -> Try[T]:
         try:
             return Success(f(*args, **kwargs))
         except Exception as e:
@@ -45,12 +49,15 @@ class Try(ABC, Generic[T]):
     def fold(self, ff: Callable[[Exception], U], fs: Callable[[T], U]) -> U:
         pass
 
+    @abstractmethod
+    def to_either(self) -> Either[Exception, T]:
+        pass
+
 
 class Success(Try):
     def __init__(self, value: T):
         super().__init__()
         self._value = value
-
 
     def _is_failure(self) -> bool:
         return False
@@ -65,13 +72,16 @@ class Success(Try):
         return Try.apply(f, self.get())
 
     def flat_map(self, f: Callable[[T], Try[U]]) -> Try[U]:
-        return f(self._value)
+        return f(self.get())
 
     def fold(self, ff: Callable[[Exception], U], fs: Callable[[T], U]) -> U:
         try:
             return fs(self.get())
         except Exception as e:
             return ff(e)
+
+    def to_either(self) -> Either[Exception, T]:
+        return Right(self.get())
 
 
 class Failure(Try):
@@ -96,3 +106,6 @@ class Failure(Try):
 
     def fold(self, ff: Callable[[Exception], U], fs: Callable[[T], U]) -> U:
         return ff(self._exception)
+
+    def to_either(self) -> Either[Exception, T]:
+        return Left(self._exception)
