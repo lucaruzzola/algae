@@ -60,6 +60,8 @@ Alternatively, you can use this syntax:
 safe_result = Try.apply(lambda: unsafe_computation(0))
 ```
 
+### Option
+
 ## Setup
 
 ### Pipenv
