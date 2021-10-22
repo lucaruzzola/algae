@@ -14,10 +14,10 @@ class Either(ABC, Generic[L, R]):
         self._value = value
 
     def map(self, f: Callable[[R], T]) -> Either[L, T]:
-        return Right(f(self._value)) if self._is_right() else Left(self._value)
+        return Right(f(self._value)) if self._is_right() else self
 
     def flat_map(self, f: Callable[[R], Either[L, T]]) -> Either[L, T]:
-        return f(self._value) if self._is_right() else Left(self._value)
+        return f(self._value) if self._is_right() else self
 
     def fold(self, fl: Callable[[L], T], fr: Callable[[R], T]) -> T:
         return fr(self._value) if self._is_right() else fl(self._value)
