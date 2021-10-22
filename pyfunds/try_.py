@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from abc import abstractmethod, ABC
-from typing import Callable, TypeVar, Union, Generic, Any, Dict, List
+from abc import ABC, abstractmethod
+from typing import Any, Callable, Dict, Generic, List, TypeVar, Union
 
-from pyfunds.either import Either, Right, Left
+from pyfunds.either import Either, Left, Right
 
 T = TypeVar("T")
 U = TypeVar("U")
