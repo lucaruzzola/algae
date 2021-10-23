@@ -54,6 +54,7 @@ class Option(ABC, Generic[T]):
     def __ne__(self, other: Option[T]):
         return not self == other
 
+
 class Some(Option):
     def __init__(self, value: T):
         super().__init__()
@@ -75,4 +76,3 @@ class Nothing(Option):
 
     def get(self) -> T:
         raise NoElement
-

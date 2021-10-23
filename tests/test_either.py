@@ -41,7 +41,7 @@ def test_map_right():
     # WHEN: the function f is applied to the either through map
     result = r.map(f)
     # THEN: the result is Right and contains the correct value
-    assert result._is_right() and result._value == f(initial_value)
+    assert result == Right(f(initial_value))
 
 
 def test_map_left():
@@ -53,7 +53,7 @@ def test_map_left():
     # WHEN: the function f is applied to the either through map
     result = l.map(f)
     # THEN: the result is Left and contains the initial value
-    assert result._is_left() and result._value == initial_value
+    assert result == Left(initial_value)
 
 
 def test_flatmap_right_to_right():
@@ -65,7 +65,7 @@ def test_flatmap_right_to_right():
     # WHEN: the function f is applied to the either through flatmap
     result = r.flat_map(f)
     # THEN: the result is Right and contains the correct value
-    assert result._is_right() and result._value == f(initial_value)._value
+    assert result == f(initial_value)
 
 
 def test_flatmap_right_to_left():
@@ -77,7 +77,7 @@ def test_flatmap_right_to_left():
     # WHEN: the function f is applied to the either through flatmap
     result = r.flat_map(f)
     # THEN: the result is Left and contains the correct value
-    assert result._is_left() and result._value == f(initial_value)._value
+    assert result == f(initial_value)
 
 
 def test_flatmap_left_to_left():
@@ -89,7 +89,7 @@ def test_flatmap_left_to_left():
     # WHEN: the function f is applied to the either through flatmap
     result = r.flat_map(f)
     # THEN: the result is Left and contains the initial value
-    assert result._is_left() and result._value == initial_value
+    assert result == Left(initial_value)
 
 
 def test_swap_to_left():
@@ -99,7 +99,7 @@ def test_swap_to_left():
     # WHEN: we swap Left and Right
     swapped = r.swap()
     # THEN: the swapped result is Left and contains the initial value
-    assert swapped._is_left() and swapped._value == initial_value
+    assert swapped == Left(initial_value)
 
 
 def test_swap_to_right():
@@ -109,7 +109,7 @@ def test_swap_to_right():
     # WHEN: we swap Left and Right
     swapped = r.swap()
     # THEN: the swapped result is Right and contains the initial value
-    assert swapped._is_right() and swapped._value == initial_value
+    assert swapped == Right(initial_value)
 
 
 def test_fold_from_right():
