@@ -38,6 +38,17 @@ class Either(ABC, Generic[L, R]):
     def __repr__(self) -> str:
         return f"pyfunds.either({self._value.__repr__()})"
 
+    def __eq__(self, other: Either[L, R]) -> bool:
+        if self._is_left():
+            return other._is_left() and self._value == other._value
+        elif other._is_left():
+            return False
+        else:
+            return self._value == other._value
+
+    def __ne__(self, other: Either[L, R]) -> bool:
+        return not self == other
+
 
 class Right(Either):
     def _is_right(self) -> bool:

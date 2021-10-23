@@ -1,6 +1,37 @@
 from pyfunds.either import Left, Right
 
 
+def test_equals_right():
+    initial_value = 5
+    r = Right(initial_value)
+    assert r == Right(initial_value) and Right(initial_value) == r
+
+
+def test_equals_left():
+    initial_value = 5
+    l = Left(initial_value)
+    assert l == Left(initial_value) and Left(initial_value) == l
+
+
+def test_not_equals():
+    initial_value = 5
+    other_value = 10
+    r = Right(initial_value)
+    r2 = Right(other_value)
+    l = Left(initial_value)
+    l2 = Left(other_value)
+    assert (
+        r != r2
+        and r2 != r
+        and r != l
+        and l != r
+        and r != l2
+        and l2 != r
+        and l != l2
+        and l2 != l
+    )
+
+
 def test_map_right():
     # GIVEN: an instance of Either that is Right with an initial value
     initial_value = 5
