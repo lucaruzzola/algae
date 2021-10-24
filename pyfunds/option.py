@@ -55,7 +55,7 @@ class Option(ABC, Generic[T]):
         return not self == other
 
 
-class Some(Option):
+class Some(Option[T]):
     def __init__(self, value: T):
         super().__init__()
         self._value = value
@@ -67,7 +67,7 @@ class Some(Option):
         return self._value
 
 
-class Nothing(Option):
+class Nothing(Option[T]):
     def __init__(self):
         super().__init__()
 
