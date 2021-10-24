@@ -43,6 +43,17 @@ class Option(ABC, Generic[T]):
     def fold(self, default: U, fs: Callable[[T], U]) -> U:
         return default if self._is_empty() else fs(self.get())
 
+    def __str__(self) -> str:
+
+        return f"Option is {'Some' if not self._is_empty() else 'Nothing'}" + (
+            f", with value: {self.get().__repr__()} of type {type(self.get())}"
+            if not self._is_empty()
+            else ""
+        )
+
+    def __repr__(self) -> str:
+        return "pyfunds.Option"
+
     def __eq__(self, other: Option[T]) -> bool:
         if self._is_empty():
             return other._is_empty()
@@ -66,6 +77,9 @@ class Some(Option[T]):
     def get(self) -> T:
         return self._value
 
+    def __repr__(self) -> str:
+        return f"pyfunds.Some({self.get()})"
+
 
 class Nothing(Option[T]):
     def __init__(self):
@@ -76,3 +90,6 @@ class Nothing(Option[T]):
 
     def get(self) -> T:
         raise NoElement
+
+    def __repr__(self) -> str:
+        return "pyfunds.Nothing"
