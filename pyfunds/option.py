@@ -19,10 +19,6 @@ class Option(ABC, Generic[T]):
     def apply(value: T):
         return Some(value) if value is not None else Nothing()
 
-    @staticmethod
-    def when(condition: bool, value: T) -> Option[T]:
-        return Some(value) if condition else Nothing()
-
     @abstractmethod
     def _is_empty(self) -> bool:
         pass
@@ -31,14 +27,18 @@ class Option(ABC, Generic[T]):
     def get(self) -> T:
         pass
 
+    def get_or_else(self, default: T) -> T:
+        return default if self._is_empty() else self.get()
+
+    @staticmethod
+    def when(condition: bool, value: T) -> Option[T]:
+        return Some(value) if condition else Nothing()
+
     def map(self, f: Callable[[T], U]) -> Option[U]:
         return Some(f(self.get())) if not self._is_empty() else self
 
     def flat_map(self, f: Callable[[T], Option[U]]) -> Option[U]:
         return f(self.get()) if not self._is_empty() else self
-
-    def get_or_else(self, default: T) -> T:
-        return default if self._is_empty() else self.get()
 
     def fold(self, default: U, fs: Callable[[T], U]) -> U:
         return default if self._is_empty() else fs(self.get())
