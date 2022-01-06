@@ -64,6 +64,6 @@ safe_result = Try.apply(lambda: unsafe_computation(0))
 
 ## Setup
 
-### Pipenv
+### Poetry
 This project uses [poetry](https://github.com/python-poetry/poetry) to manage its dependencies.
 Please refer to [poetry's official doc](https://python-poetry.org/docs/) for more info.
