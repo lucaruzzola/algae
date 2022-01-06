@@ -62,7 +62,7 @@ class Option(ABC, Generic[T]):
         else:
             return self.get() == other.get()
 
-    def __ne__(self, other: Option[T]):
+    def __ne__(self, other: Option[T]) -> bool:
         return not self == other
 
 
