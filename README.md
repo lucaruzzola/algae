@@ -4,7 +4,7 @@ Python Functional Data Structures
 This repository implements simple functional data structures in Python from scratch and is inspired by Scala's implementation of these structures.
 
 Feel free to open an issue or [send me an email](mailto:lucaruzzola@gmail.com) 
-in case you'd like to contribute or if sou see something that can be improved.
+in case you'd like to contribute or if you see something that can be improved.
 
 ## Usage Examples
 
@@ -65,5 +65,5 @@ safe_result = Try.apply(lambda: unsafe_computation(0))
 ## Setup
 
 ### Pipenv
-This project uses [pipenv](https://github.com/pypa/pipenv) to manage its dependencies.
-Please refer to [pipenv's official doc](https://pipenv.pypa.io/en/latest/#install-pipenv-today) for more info.
+This project uses [poetry](https://github.com/python-poetry/poetry) to manage its dependencies.
+Please refer to [poetry's official doc](https://python-poetry.org/docs/) for more info.
