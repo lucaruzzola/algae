@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, Generic, List, TypeVar, Union
 
 from pyfunds.either import Either, Left, Right
+from pyfunds.option import Nothing, Option, Some
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -53,6 +54,23 @@ class Try(ABC, Generic[T]):
     def to_either(self) -> Either[Exception, T]:
         pass
 
+    @abstractmethod
+    def to_option(self) -> Option[T]:
+        pass
+
+    def __str__(self) -> str:
+        return f"Try is {'Success' if self._is_success() else 'Failure'}"
+
+    def __repr__(self) -> str:
+        return "pyfunds.Try"
+
+    @abstractmethod
+    def __eq__(self, other: Try[T]) -> bool:
+        pass
+
+    def __ne__(self, other: Try[T]) -> bool:
+        return not self == other
+
 
 class Success(Try):
     def __init__(self, value: T):
@@ -83,6 +101,21 @@ class Success(Try):
     def to_either(self) -> Either[Exception, T]:
         return Right(self.get())
 
+    def to_option(self) -> Option[T]:
+        return Some(self.get())
+
+    def __str__(self) -> str:
+        return f"Try is Success with value: {self._value.__repr__()} of type {type(self._value)}"
+
+    def __repr__(self) -> str:
+        return f"pyfunds.Succes({self._value.__repr__()})"
+
+    def __eq__(self, other: Try[T]) -> bool:
+        if other._is_failure():
+            return False
+        else:
+            return self.get() == other.get()
+
 
 class Failure(Try):
     def __init__(self, exception: Exception):
@@ -109,3 +142,21 @@ class Failure(Try):
 
     def to_either(self) -> Either[Exception, T]:
         return Left(self._exception)
+
+    def to_option(self) -> Option[T]:
+        return Nothing()
+
+    def __str__(self) -> str:
+        return f"Try is Failure with exception type: {type(self._exception)} and args {self._exception.args}"
+
+    def __repr__(self) -> str:
+        return f"pyfunds.Failure({self._exception.__repr__()})"
+
+    def __eq__(self, other: Try[T]) -> bool:
+        if other._is_success():
+            return False
+        else:
+            return (
+                type(self._exception) == type(other._exception)
+                and self._exception.args == other._exception.args
+            )
