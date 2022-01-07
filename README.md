@@ -25,7 +25,7 @@ As an example, let's see the case of a function that can raise an Exception:
 import math
 
 def unsafe_computation(value: int):
-    math.log(value)  # this throws an Exception if value is <= 0
+    return math.log(value)  # this throws an Exception if value is <= 0
 ```
 
 Upon calling this function with `value` <= 0 we'll see:
