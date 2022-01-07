@@ -3,7 +3,12 @@ Python Functional Data Structures
 
 This repository contains an implementation from scratch of simple functional data structures in Python. 
 
-It is inspired by Scala's implementation of these structures.
+The following structures are currently implemented and tested:
+ - Either
+ - Option
+ - Try
+
+This library is inspired by Scala's implementation of these structures.
 
 Feel free to open an issue or [send me an email](mailto:lucaruzzola@gmail.com) 
 in case you'd like to contribute or if you see something that can be improved.
@@ -14,13 +19,18 @@ in case you'd like to contribute or if you see something that can be improved.
 
 Either represents a value that can assume one of two types.
 
-Concrete instances are of type Left or Right.
+Concrete instances are of type `Left` or `Right`.
+
+### Option
+
+Option represents an optional value, its concrete instances are 
+of type `Nothing` or `Some`.
 
 ### Try
 
-Try represents a computation that can either fail (raising an Exception) or return the resulting value.
+`Try` represents a computation that can either fail (raising an Exception) or return the resulting value.
 
-Concrete instances are of type Failure or Success.
+Concrete instances are of type `Failure` or `Success`.
 
 As an example, let's see the case of a function that can raise an Exception:
 ``` python
@@ -61,8 +71,6 @@ Alternatively, you can use this syntax:
 ```python
 safe_result = Try.apply(lambda: unsafe_computation(0))
 ```
-
-### Option
 
 ## Setup
 
