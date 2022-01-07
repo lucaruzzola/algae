@@ -3,7 +3,7 @@ Python Functional Data Structures
 
 This repository contains an implementation from scratch of simple functional data structures in Python. 
 
-The following structures are currently implemented and tested:
+The following structures are implemented and tested:
  - Either
  - Option
  - Try
