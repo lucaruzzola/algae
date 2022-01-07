@@ -106,7 +106,7 @@ class Success(Try):
         return f"Try is Success with value: {self._value.__repr__()} of type {type(self._value)}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Succes({self._value.__repr__()})"
+        return f"pyfunds.Succesz({self._value.__repr__()})"
 
     def __eq__(self, other: Try[T]) -> bool:
         if other._is_failure():
