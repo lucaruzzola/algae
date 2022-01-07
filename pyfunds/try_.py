@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Dict, Generic, List, TypeVar, Union
+from typing import Any, Callable, Generic, TypeVar, Union
 
 from pyfunds.either import Either, Left, Right
 from pyfunds.option import Nothing, Option, Some
@@ -15,9 +15,7 @@ class Try(ABC, Generic[T]):
         super().__init__()
 
     @staticmethod
-    def apply(
-        f: Callable[[Any], T], *args: List[Any], **kwargs: Dict[str, Any]
-    ) -> Try[T]:
+    def apply(f: Callable[[Any], T], *args: Any, **kwargs: Any) -> Try[T]:
         try:
             return Success(f(*args, **kwargs))
         except Exception as e:
