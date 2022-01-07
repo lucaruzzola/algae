@@ -17,13 +17,13 @@ in case you'd like to contribute or if you see something that can be improved.
 
 ### Either
 
-Either represents a value that can assume one of two types.
+`Either` represents a value that can assume one of two types.
 
 Concrete instances are of type `Left` or `Right`.
 
 ### Option
 
-Option represents an optional value, its concrete instances are 
+`Option` represents an optional value, its concrete instances are 
 of type `Nothing` or `Some`.
 
 ### Try
