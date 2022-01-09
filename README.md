@@ -64,7 +64,7 @@ from logging import getLogger
 
 logger = getLogger()
 
-second_resp.fold(lambda left_string: logger.warning, lambda right_json_dict: logger.info)
+second_resp.fold(lambda left_string: logger.warning(left_string), lambda right_json_dict: logger.info(right_json_dict["msg"]))
 ```
 
 Please note that this is different from the case where an `Exception` is raised, which better fits the `Try` structure 
