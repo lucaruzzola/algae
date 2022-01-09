@@ -66,7 +66,7 @@ from logging import getLogger
 
 logger = getLogger()
 
-posts.fold(lambda left_string: logger.warning(left_string), lambda right_json_dict: logger.info(right_json_dict[0]["title"]))
+posts.fold(logger.warning, lambda x: logger.info(x[0]["title"]))
 ```
 
 The above example enters the `Right` branch of the `Either`, change the `base_url` to `$base_url/pizza` to get a `Left` at the first stage.
@@ -78,6 +78,36 @@ described below.
 
 `Option` represents an optional value, its concrete instances are 
 of type `Nothing` or `Some`.
+
+As an example, let's consider the case of checking for a variable in a dictionary.
+Normally, a default value of `None` is returned if the request key is not present in the dictionary,
+however this requires the user of method returning such a value to check explicitly the content of the return variable.
+
+Further, multiple calls of this type cannot be chained together, and the value needs to be checked every time.
+Using `Option` we can instead reason using the type directly, and demanding to it the checking steps.
+
+```python
+from pyfunds.option import Option
+
+d = {"food": "Pizza"}
+
+result = Option.apply(d.get("another_key"))
+
+awesomize = lambda x: x + "is awesome" 
+
+msg = result.map(awesomize)
+```
+
+This way we didn't need to check whether the key was present in the dictionary or not.
+Finally, we can get a default value to go from an `Option` to a `str`.
+
+```python
+msg.fold("Pizza is incredible anyways!", lamdba x: x + ", but fries are good too!")
+```
+
+The final `msg` will be `Pizza is incredible anyways!`.
+
+If instead we had looked for the `food` key, `msg` would have been `Pizza is awesome, but fries are good too!`
 
 ### Try
 
