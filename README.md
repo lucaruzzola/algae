@@ -28,10 +28,12 @@ Please refer to [poetry's official doc](https://python-poetry.org/docs/) for mor
 
 Concrete instances are of type `Left` or `Right`.
 
-As an example, let's consider the case of making HTTP calls to endpoints, which might from time to time return a 
-status code representing an error, inside a method. 
+As an example, let's consider the case of making HTTP calls which might return a 
+status code representing an error as the url is user-defined. 
 If a call is successful, we want to return the JSON from the response, but if it's
 not we'll map it to an internal error message.
+
+The examples use this [example server](https://jsonplaceholder.typicode.com).
 
 ```python
 import requests
@@ -39,12 +41,11 @@ from pyfunds.either import Left, Right, Either
 from typing import Dict, Any
 
 def map_response_to_msg(response: requests.models.Response):
-    return str(f"The {response.request.method} request to {response.url} couldn't be completed \
-    and returned a {response.status_code} status_code")
+    return f"The {response.request.method} request to {response.url} couldn't be completed " \
+    f"and returned a {response.status_code} status_code"
 
-def call_and_check_endpoint(url: str) -> Either[str, Dict[Any, Any]]:
+def call_and_check(url: str) -> Either[str, Dict[Any, Any]]:
     response = requests.get(url)
-    
     return Right(response.json()) if response.ok else Left(map_response_to_msg(response))
 ```
 
@@ -52,8 +53,9 @@ Users of this method will then be able to further chain operations which can res
 keeping track of the error message identifying the step that returned something unexpected in the chain.
 
 ```python
-either_resp = call_and_check_endpoint(url1)
-second_resp = either_resp.flat_map(lambda json_dict: call_and_check_endpoint(json_dict["next_url"])) # assuming the `next_url` field is present in the json response
+base_url = "https://jsonplaceholder.typicode.com"
+users_json = call_and_check(f"{base_url}/users")
+posts = users_json.flat_map(lambda json: call_and_check(f"{base_url}/posts?userId={json[0]['id']}"))
 ```
 
 Lastly, we'll log the content of the `Either`at the appropriate level in each case; the contained string in the `Left` 
@@ -64,8 +66,10 @@ from logging import getLogger
 
 logger = getLogger()
 
-second_resp.fold(lambda left_string: logger.warning(left_string), lambda right_json_dict: logger.info(right_json_dict["msg"]))
+posts.fold(lambda left_string: logger.warning(left_string), lambda right_json_dict: logger.info(right_json_dict[0]["title"]))
 ```
+
+The above example enters the `Right` branch of the `Either`, change the `base_url` to `$base_url/pizza` to get a `Left` at the first stage.
 
 Please note that this is different from the case where an `Exception` is raised, which better fits the `Try` structure 
 described below.
