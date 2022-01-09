@@ -158,4 +158,8 @@ safe_result = Try.apply(lambda: unsafe_computation(0))
 ```
 
 Using `Try`, an appropriate return type can be used for methods that might fail and raise an `Exeception`, 
-leaving the user in charge of easily dealing with the subsequent behavior.
+leaving the user in charge of easily dealing with the subsequent behavior, for example:
+
+```python
+Try.apply(unsafe_computation, 1).map(lambda x: x + 1)
+```
