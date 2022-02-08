@@ -14,11 +14,11 @@ Feel free to open an issue or [send me an email](mailto:lucaruzzola@gmail.com)
 in case you'd like to contribute or if you see something that can be improved.
 
 ## Installation
-This project is published on [PyPi](https://pypi.org/project/pyfunds/) as `pyfunds` so you can easily install it with `pip` as 
+This project is published on [PyPi](https://pypi.org/project/pyfunds/) as `pyfunds` so you can easily install it with `pip` as:
 ```shell
 pip install pyfunds
 ```
-or
+or with `poetry` as:
 ```shell
 poetry add pyfunds
 ```
