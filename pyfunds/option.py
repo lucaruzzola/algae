@@ -46,7 +46,7 @@ class Option(ABC, Generic[T]):
     def __str__(self) -> str:
 
         return f"Option is {'Some' if not self._is_empty() else 'Nothing'}" + (
-            f", with value: {self.get().__repr__()} of type {type(self.get())}"
+            f", containing value: {self.get().__repr__()} of type {type(self.get())}"
             if not self._is_empty()
             else ""
         )

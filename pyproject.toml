@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyfunds"
-version = "0.1.2"
+version = "1.0.0"
 description = "Python Functional Data Structures"
 authors = ["Luca Ruzzola <lucaruzzola@gmail.com>"]
 readme = 'README.md'
