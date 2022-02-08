@@ -63,7 +63,7 @@ def test_when_some():
 
     # WHEN: the 'when' method is used to create an instance of Option, and the boolean method returns True
     some = Option.when(is_monster(value), "pk")
-    # THEN: the instance of Option is Some of the value passed
+    # THEN: the instance of Option is a Some of the value passed
     assert some == Some("pk")
 
 
