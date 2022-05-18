@@ -12,6 +12,11 @@ class NoElement(Exception):
 
 
 class Option(ABC, Generic[T]):
+
+    _value: T
+    __match_args__ = "_value"
+    __slots__ = "_value"
+
     def __init__(self):
         super().__init__()
 

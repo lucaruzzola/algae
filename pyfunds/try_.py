@@ -11,6 +11,11 @@ U = TypeVar("U")
 
 
 class Try(ABC, Generic[T]):
+
+    _value: T
+    __match_args__ = "_value"
+    __slots__ = "_value"
+
     def __init__(self):
         super().__init__()
 
@@ -106,7 +111,7 @@ class Success(Try):
         return f"Try is Success with value: {self._value.__repr__()} of type {type(self._value)}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Succesz({self._value.__repr__()})"
+        return f"pyfunds.Success({self._value.__repr__()})"
 
     def __eq__(self, other: Try[T]) -> bool:
         if other._is_failure():
@@ -118,13 +123,13 @@ class Success(Try):
 class Failure(Try):
     def __init__(self, exception: Exception):
         super().__init__()
-        self._exception = exception
+        self._value = exception
 
     def _is_failure(self) -> bool:
         return True
 
     def get(self) -> Union[T, Exception]:
-        raise self._exception
+        raise self._value
 
     def get_or_else(self, default: T) -> T:
         return default
@@ -136,25 +141,25 @@ class Failure(Try):
         return self
 
     def fold(self, ff: Callable[[Exception], U], fs: Callable[[T], U]) -> U:
-        return ff(self._exception)
+        return ff(self._value)
 
     def to_either(self) -> Either[Exception, T]:
-        return Left(self._exception)
+        return Left(self._value)
 
     def to_option(self) -> Option[T]:
         return Nothing()
 
     def __str__(self) -> str:
-        return f"Try is Failure with exception type: {type(self._exception)} and args {self._exception.args}"
+        return f"Try is Failure with exception type: {type(self._value)} and args {self._value.args}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Failure({self._exception.__repr__()})"
+        return f"pyfunds.Failure({self._value.__repr__()})"
 
     def __eq__(self, other: Try[T]) -> bool:
         if other._is_success():
             return False
         else:
             return (
-                type(self._exception) == type(other._exception)
-                and self._exception.args == other._exception.args
+                type(self._value) == type(other._value)
+                and self._value.args == other._value.args
             )
