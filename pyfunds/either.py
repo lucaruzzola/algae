@@ -9,6 +9,11 @@ T = TypeVar("T")
 
 
 class Either(ABC, Generic[L, R]):
+
+    _value: Union[L, R]
+    __match_args__ = "_value"
+    __slots__ = "_value"
+
     def __init__(self, value: Union[L, R]):
         super().__init__()
         self._value = value
