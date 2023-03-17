@@ -57,7 +57,7 @@ class Option(ABC, Generic[T]):
         )
 
     def __repr__(self) -> str:
-        return "pyfunds.Option"
+        return "algae.Option"
 
     def __eq__(self, other: Option[T]) -> bool:
         if self._is_empty():
@@ -83,7 +83,7 @@ class Some(Option[T]):
         return self._value
 
     def __repr__(self) -> str:
-        return f"pyfunds.Some({self.get()})"
+        return f"algae.Some({self.get()})"
 
 
 class Nothing(Option[T]):
@@ -97,4 +97,4 @@ class Nothing(Option[T]):
         raise NoElement
 
     def __repr__(self) -> str:
-        return "pyfunds.Nothing"
+        return "algae.Nothing"

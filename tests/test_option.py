@@ -1,6 +1,6 @@
 import pytest
 
-from pyfunds.option import NoElement, Nothing, Option, Some
+from algae.option import NoElement, Nothing, Option, Some
 
 
 def test_apply_some():

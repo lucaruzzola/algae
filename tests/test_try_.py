@@ -2,9 +2,9 @@ import math
 
 import pytest
 
-from pyfunds.either import Left, Right
-from pyfunds.option import Nothing, Some
-from pyfunds.try_ import Failure, Success, Try
+from algae.either import Left, Right
+from algae.option import Nothing, Some
+from algae.try_ import Failure, Success, Try
 
 
 def unsafe_f(value: int):

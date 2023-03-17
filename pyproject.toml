@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "pyfunds"
+name = "algae"
 version = "1.1.0"
-description = "Python Functional Data Structures"
+description = "Algebraic Data Types for Python"
 authors = ["Luca Ruzzola <lucaruzzola@gmail.com>"]
 readme = 'README.md'
-keywords = ['python', 'functional', 'programming', 'data', 'structures']
-repository = 'https://github.com/lucaruzzola/pyfunds'
+keywords = ['python', 'ADT', 'algebraic', 'types', 'functional', 'programming', 'data', 'structures']
+repository = 'https://github.com/lucaruzzola/algae'
 
 [tool.poetry.dependencies]
 python = "^3.8"

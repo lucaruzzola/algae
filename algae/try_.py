@@ -3,8 +3,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Generic, TypeVar, Union
 
-from pyfunds.either import Either, Left, Right
-from pyfunds.option import Nothing, Option, Some
+from algae.either import Either, Left, Right
+from algae.option import Nothing, Option, Some
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -65,7 +65,7 @@ class Try(ABC, Generic[T]):
         return f"Try is {'Success' if self._is_success() else 'Failure'}"
 
     def __repr__(self) -> str:
-        return "pyfunds.Try"
+        return "algae.Try"
 
     @abstractmethod
     def __eq__(self, other: Try[T]) -> bool:
@@ -111,7 +111,7 @@ class Success(Try):
         return f"Try is Success with value: {self._value.__repr__()} of type {type(self._value)}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Success({self._value.__repr__()})"
+        return f"algae.Success({self._value.__repr__()})"
 
     def __eq__(self, other: Try[T]) -> bool:
         if other._is_failure():
@@ -153,7 +153,7 @@ class Failure(Try):
         return f"Try is Failure with exception type: {type(self._value)} and args {self._value.args}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Failure({self._value.__repr__()})"
+        return f"algae.Failure({self._value.__repr__()})"
 
     def __eq__(self, other: Try[T]) -> bool:
         if other._is_success():
