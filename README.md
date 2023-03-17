@@ -1,4 +1,4 @@
-# pyfunds
+# algae
 Algebraic Data Types for Python
 
 ![option](docs/option.png)
@@ -16,13 +16,13 @@ Feel free to open an issue or [send me an email](mailto:lucaruzzola@gmail.com)
 in case you'd like to contribute or if you see something that can be improved.
 
 ## Installation
-This project is published on [PyPi](https://pypi.org/project/pyfunds/) as `pyfunds` so you can easily install it with `pip` as:
+This project is published on [PyPi](https://pypi.org/project/algae/) as `algae` so you can easily install it with `pip` as:
 ```shell
-pip install pyfunds
+pip install algae
 ```
 or with `poetry` as:
 ```shell
-poetry add pyfunds
+poetry add algae
 ```
 
 ## Setup
@@ -49,7 +49,7 @@ The examples use this [example server](https://jsonplaceholder.typicode.com).
 
 ```python
 import requests
-from pyfunds.either import Left, Right, Either
+from algae.either import Left, Right, Either
 from typing import Dict, Any
 
 def map_response_to_msg(response: requests.models.Response):
@@ -99,7 +99,7 @@ Further, multiple calls of this type cannot be chained together, and the value n
 Using `Option` we can instead reason using the type directly, and demanding to it the checking steps.
 
 ```python
-from pyfunds.option import Option
+from algae.option import Option
 
 d = {"food": "Pizza"}
 
@@ -148,7 +148,7 @@ ValueError: math domain error
 
 To make this computation safe, even for `value` <= 0, we'll wrap its execution with Try:
 ```python
-from pyfunds.try_ import Try
+from algae.try_ import Try
 
 safe_result = Try.apply(unsafe_computation, 0)
 ```
@@ -175,3 +175,5 @@ leaving the user in charge of easily dealing with the subsequent behavior, for e
 ```python
 Try.apply(unsafe_computation, 1).map(lambda x: x + 1)
 ```
+
+Special thanks to [David Cuthbert](https://github.com/dacut) for letting me have the "algae" name on PyPI.

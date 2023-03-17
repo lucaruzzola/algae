@@ -1,4 +1,4 @@
-from pyfunds.either import Left, Right
+from algae.either import Left, Right
 
 
 def test_map_right():

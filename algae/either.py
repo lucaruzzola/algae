@@ -41,7 +41,7 @@ class Either(ABC, Generic[L, R]):
         return f"Either is {'Right' if self._is_right() else 'Left'}, with value: {self._value.__repr__()} of type {type(self._value)}"
 
     def __repr__(self) -> str:
-        return f"pyfunds.Either({self._value.__repr__()})"
+        return f"algae.Either({self._value.__repr__()})"
 
     def __eq__(self, other: Either[L, R]) -> bool:
         if self._is_left():
@@ -60,7 +60,7 @@ class Right(Either):
         return True
 
     def __repr__(self) -> str:
-        return f"pyfunds.Right({self._value})"
+        return f"algae.Right({self._value})"
 
 
 class Left(Either):
@@ -68,4 +68,4 @@ class Left(Either):
         return False
 
     def __repr__(self) -> str:
-        return f"pyfunds.Left({self._value})"
+        return f"algae.Left({self._value})"
