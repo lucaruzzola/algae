@@ -1,7 +1,9 @@
 # pyfunds
-Python Functional Data Structures
+Algebraic Data Structures for Python
 
-This repository contains an implementation from scratch of simple functional data structures in Python. 
+![option](docs/option.png)
+
+This repository contains an implementation from scratch of simple algebraic data structures in Python. 
 
 The following structures are implemented and tested:
  - Either
