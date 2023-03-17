@@ -1,11 +1,11 @@
 # pyfunds
-Algebraic Data Structures for Python
+Algebraic Data Types for Python
 
 ![option](docs/option.png)
 
-This repository contains an implementation from scratch of simple algebraic data structures in Python. 
+This repository contains an implementation from scratch of simple algebraic data types in Python. 
 
-The following structures are implemented and tested:
+The following types are implemented and tested:
  - Either
  - Option
  - Try
